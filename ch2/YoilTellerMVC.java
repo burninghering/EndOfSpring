@@ -10,12 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class YoilTellerMVC {
 	
 	@RequestMapping("/getYoilMVC")
-	public void main(int year, int month, int day, Model model) throws IOException {  
+	public ModelAndView main(int year, int month, int day) throws IOException {  
+		
+		ModelAndView mv = new ModelAndView();
 		
 	//1. 유효성 검사
 //	  if(!isValid(year,month,day)) 
@@ -25,12 +28,14 @@ public class YoilTellerMVC {
 	  char yoil = getYoil(year, month, day);
 	  
 	  //3. 계산한 결과를 모델에 저장
-	  model.addAttribute("year", year);
-	  model.addAttribute("month", month);
-	  model.addAttribute("day", day);
-	  model.addAttribute("yoil", yoil);
+	  mv.addObject("year", year);
+	  mv.addObject("month", month);
+	  mv.addObject("day", day);
+	  mv.addObject("yoil", yoil);
 	  
-//      return "yoil"; //WEP-INF/views/yoil.jsp 부분을 보여주자 
+	  mv.setViewName("yoil");
+	  
+	  return mv;
 	}
 
 	private boolean isValid(int year, int month, int day) {
