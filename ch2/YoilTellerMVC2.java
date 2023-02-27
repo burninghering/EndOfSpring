@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class YoilTellerMVC {
+public class YoilTellerMVC2 {
 	
 	@ExceptionHandler(Exception.class)
 	public String catcher(Exception e) {
 		return "yoilError";
 	}
 	
-    @RequestMapping("/getYoilMVC") // http://localhost/ch2/getYoilMVC
+    @RequestMapping("/getYoilMVC2") // http://localhost/ch2/getYoilMVC
     public String main(@RequestParam(required=true)int year, 
     		@RequestParam(required=true)int month, 
     		@RequestParam(required=true)int day, Model model) {
