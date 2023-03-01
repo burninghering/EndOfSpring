@@ -8,15 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class RegisterController {
-//	@RequestMapping("/register/save", method={RequestMethod.POST,RequestMethod.GET}) //POST와 GET방식 둘 다 가능하도록 배열에 넣음 
-//	@RequestMapping("/register/add") //신규회원 가입 화면
-//	@GetMapping("/register/add")
-//	public String register() {
-//		return "registerForm"; //WEB-INF/views/registerForm.jsp
-//	}
+	@RequestMapping(value="/register/add", method={RequestMethod.GET, RequestMethod.POST}) //POST와 GET방식 둘 다 가능하도록 배열에 넣음 
+	public String register() {
+		return "registerForm"; //WEB-INF/views/registerForm.jsp
+	}
 	
 //	@RequestMapping("/register/save", method=RequestMethod.POST)
 	@PostMapping("/register/save")
@@ -29,13 +28,13 @@ public class RegisterController {
 //			return "redirect:/register/add?msg="+msg; //URL 재작성 (rewriting) -> redirect에 msg를 전달해줌
 			
 			m.addAttribute("msg",msg);
-			return "redirect:/register/add";
+			return "forward:/register/add";
 		}
 		//유효하면 회원 정보 화면 보여주기 
 		return "registerInfo";
 	}
 
 	private boolean isValid(User user) {
-		return true;
+		return false;
 	}
 }
