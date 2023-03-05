@@ -29,7 +29,13 @@ public class PerformanceFilter implements Filter {
 		chain.doFilter(request, response); 
 		
 		// 3. 후처리 작업
-		System.out.print("["+((HttpServletRequest)request).getRequestURI()+"]");
+		//형변환 작업
+		HttpServletRequest req = (HttpServletRequest)request;
+		String referer = req.getHeader("referer"); //어디서 요청했는지 알수있음
+		String method=req.getMethod(); //어떤 메소드로 요청했는지 알 수 있음
+		
+		System.out.print("["+referer+"]->"+method+"["+req.getRequestURI()+"]"); //어디서 어디로 요청을 보내는 지 알 수 있음
+		
 		System.out.println(" 소요시간="+(System.currentTimeMillis()-startTime)+"ms");
 	}
 
