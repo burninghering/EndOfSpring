@@ -3,7 +3,9 @@ package com.fastcampus.ch2;
 import java.net.URLEncoder;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,12 +21,20 @@ public class LoginController {
 		return "loginForm";
 	}
 	
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		//1.세션을 종료
+		session.invalidate();
+		//2.홈으로 이동
+		return "redirect:/";
+	}
+	
+	
 	@PostMapping("/login")
-	public String login(String id,String pwd,boolean rememberId,HttpServletResponse response) throws Exception {
-		
-		System.out.println("id="+id);
-		System.out.println("pwd="+pwd);
-		System.out.println("rememberId="+rememberId);
+	public String login(String id,String pwd,boolean rememberId,
+			HttpServletRequest request, String toURL,
+			HttpServletResponse response) throws Exception {		
 		
 		//1. 아이디와 패스워드 확인
 		//2-1. 일치하지 않으면 loginForm으로 이동
@@ -35,7 +45,11 @@ public class LoginController {
 			return "redirect:/login/login?msg="+msg;
 		}
 		
-		//2-2. 아이디와 패스워드가 일치하면 홈으로 이동
+		//2-2. 아이디와 패스워드가 일치하면,
+		//세션 객체를 얻어오기
+		HttpSession session = request.getSession();
+		// 세션 객체에 id를 저장
+		session.setAttribute("id", id);
 		
 		if(rememberId) {
 			//쿠키를 생성
@@ -52,7 +66,11 @@ public class LoginController {
 		}
 		
 		//	3. 홈으로 이동
-		return "redirect:/";
+		
+		toURL = toURL==null || toURL.equals("") ? "/" : toURL; 
+		//toURL의 값이 제대로 넘어오지 않는다면 (null이거나, 빈 문자열이면) 홈으로 가게 하고 그렇지 않으면 toURL로 
+		
+		return "redirect:"+toURL;
 	}
 
 	private boolean loginCheck(String id, String pwd) {
