@@ -2,21 +2,24 @@ package com.fastcampus.ch2;
 
 import java.io.FileNotFoundException;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 public class ExceptionController {
 	
 	@ExceptionHandler(Exception.class)
 	public String catcher(Exception ex, Model model) { 
-		model.addAttribute("ex",ex); //모델로 넘겨주기
-		return "error";
+		model.addAttribute("ex",ex);
+		return "error"; //<--응답 상태 코드를 200번으로 보여줌
 	}
 	
-	@ExceptionHandler({NullPointerException.class,FileNotFoundException.class}) //괄호 안에 배열을 넣어준다 
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) //에러 상태코드를 500번으로 바꿔줌
+	@ExceptionHandler({NullPointerException.class,FileNotFoundException.class}) 
 	public String catcher2(Exception ex,Model model) {
 		model.addAttribute("ex", ex);
 		return "error";
