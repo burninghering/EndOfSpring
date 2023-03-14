@@ -8,8 +8,8 @@ import org.springframework.validation.Validator;
 	public class GlobalValidator implements Validator {
 		@Override
 		public boolean supports(Class<?> clazz) {
-//			return User.class.equals(clazz); // °ËÁõÇÏ·Á´Â °´Ã¼°¡ UserÅ¸ÀÔÀÎÁö È®ÀÎ
-			return User.class.isAssignableFrom(clazz); // clazz°¡ User ¶Ç´Â ±× ÀÚ¼ÕÀÎÁö È®ÀÎ
+//			return User.class.equals(clazz); // ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ UserÅ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+			return User.class.isAssignableFrom(clazz); // clazzï¿½ï¿½ User ï¿½Ç´ï¿½ ï¿½ï¿½ ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 		}
 
 		@Override
@@ -24,14 +24,14 @@ import org.springframework.validation.Validator;
 	//			errors.rejectValue("id", "required");
 	//		}
 			
-			//id°¡ nullÀÌ°Å³ª °ø¹éÀÏ ¶§ ±×·± °æ¿ì¿¡´Â errors°´Ã¼¿¡ ÇÊµåÀÌ¸§À» id¶ó°í ÇÏ°í, ¿¡·¯ÄÚµå¸¦ required¶ó°í ÀúÀåÇØ¶ó
+			//idï¿½ï¿½ nullï¿½Ì°Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½×·ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ errorsï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Êµï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ idï¿½ï¿½ï¿½ ï¿½Ï°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Úµå¸¦ requiredï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¶ï¿½
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "id",  "required"); 
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pwd", "required");
 			
 			
-			//id°¡ 5ÀÚº¸´Ù ÀÛ°Å³ª 12ÀÚº¸´Ù ±æ¶§´Â invalidLength¶ó´Â ¿¡·¯ÄÚµå·Î ÀúÀåÇØ¶ó
+			//idï¿½ï¿½ 5ï¿½Úºï¿½ï¿½ï¿½ ï¿½Û°Å³ï¿½ 12ï¿½Úºï¿½ï¿½ï¿½ ï¿½æ¶§ï¿½ï¿½ invalidLengthï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¶ï¿½
 			if(id==null || id.length() <  5 || id.length() > 12) {
-				errors.rejectValue("id", "invalidLength");
+				errors.rejectValue("id", "invalidLength", new String[] {"","5","12"}, null);
 			}
 		}
 	}
