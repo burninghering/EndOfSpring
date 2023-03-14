@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ExceptionController {
 	
 	@ExceptionHandler(Exception.class)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) //에러 상태코드를 500번으로 바꿔줌
 	public String catcher(Exception ex, Model model) { 
 		model.addAttribute("ex",ex);
 		return "error"; //<--응답 상태 코드를 200번으로 보여줌
 	}
 	
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) //에러 상태코드를 500번으로 바꿔줌
 	@ExceptionHandler({NullPointerException.class,FileNotFoundException.class}) 
 	public String catcher2(Exception ex,Model model) {
 		model.addAttribute("ex", ex);
