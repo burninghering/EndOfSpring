@@ -85,7 +85,10 @@ public class ApplicationContextTest {
         System.out.println("ac.getBean(SysInfo.class) = " + ac.getBean(SysInfo.class));
 
         Map<String,String> map = System.getenv();
-//        System.out.println("map = " + map);
+        System.out.println("map = " + map);
+        
+        Properties properties = System.getProperties();
+        System.out.println("properties = " + properties);
 
 //        System.out.println("car2 = " + car2);
 //
