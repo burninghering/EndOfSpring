@@ -1,19 +1,27 @@
 package com.fastcampus.ch3;
 
-import junit.framework.TestCase;
-
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
 
-public class DBConnectionTest2Test extends TestCase {
+import static org.junit.Assert.assertTrue;
+
+@RunWith(SpringJUnit4ClassRunner.class) //ac를 자동으로 만들어줌
+@ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/**/root-context.xml"}) //xml 경로 지정해주기
+public class DBConnectionTest2Test {
+   @Autowired
+    DataSource ds; //하드코딩하지말고, 빈을 가져와 쓴다 (아래 주석처리한 부분 대신)
     @Test
-    public void springJdbcConnectionTest() throws Exception {
-        ApplicationContext ac = new GenericXmlApplicationContext("file:src/main/webapp/WEB-INF/spring/**/root-context.xml");
-        DataSource ds = ac.getBean(DataSource.class);
+    public void springJdcConnectionTest() throws Exception{
+//        ApplicationContext ac = new GenericXmlApplicationContext("file:src/main/webapp/WEB-INF/spring/**/root-context.xml");
+//        DataSource ds = ac.getBean(DataSource.class);
 
         Connection conn = ds.getConnection(); // 데이터베이스의 연결을 얻는다.
 
